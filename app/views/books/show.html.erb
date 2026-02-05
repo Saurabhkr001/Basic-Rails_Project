@@ -1,0 +1,74 @@
+<div class="container mt-4">
+
+  <div class="card shadow-sm p-4">
+    <div class="row g-4">
+
+      <!-- LEFT: COVER IMAGE -->
+      <div class="col-md-4 text-center">
+        <% if @book.cover_image.attached? %>
+          <%= image_tag @book.cover_image,
+              class: "img-fluid rounded shadow-sm",
+              style: "max-width: 280px;" %>
+        <% else %>
+          <div class="border rounded p-5 text-muted">
+            No image attached.
+          </div>
+        <% end %>
+      </div>
+
+      <!-- RIGHT: BOOK DETAILS -->
+      <div class="col-md-8">
+
+        <h2 class="mb-3"><%= @book.title %></h2>
+
+        <p>
+          <strong>Author:</strong>
+          <%= @book.author %>
+        </p>
+
+        <p>
+          <strong>Description:</strong><br>
+          <%= @book.description %>
+        </p>
+
+        <p>
+          <strong>Price:</strong>
+          <span class="text-success fw-bold">
+            <%= number_to_currency(@book.price) %>
+          </span>
+        </p>
+
+        <!-- Book File -->
+        <p>
+          <strong>Summary:</strong><br>
+          <% if @book.book_file.attached? %>
+            <%= link_to "Read here",
+                rails_blob_path(@book.book_file, disposition: "attachment"),
+                class: "btn btn-primary btn-sm mt-1" %>
+          <% else %>
+            <em>No file attached.</em>
+          <% end %>
+        </p>
+
+        <hr>
+
+        <!-- ACTION BUTTONS -->
+        <div class="d-flex gap-2 flex-wrap">
+          <%= link_to "Edit", edit_book_path(@book), class: "btn btn-warning" %>
+          <%= link_to "Back", books_path, class: "btn btn-secondary" %>
+
+          <%= button_to "Buy this Book",
+              buy_book_path(@book),
+              method: :post,
+              class: "btn btn-success" %>
+
+          <%= link_to "View Purchase Stats",
+              purchased_book_path(@book),
+              class: "btn btn-outline-primary" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

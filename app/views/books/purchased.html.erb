@@ -1,0 +1,61 @@
+<div class="container mt-4">
+
+  <div class="card shadow-sm p-4 mb-4">
+    <h1 class="mb-3 text-primary">📊 Purchase Statistics</h1>
+
+    <% if @book %>
+
+      <div class="row">
+        <div class="col-md-8">
+
+          <div class="card p-3 mb-3">
+            <h4 class="mb-3">Book Details</h4>
+
+            <p><strong>Title:</strong> <%= @book.title %></p>
+            <p><strong>Author:</strong> <%= @book.author %></p>
+            <p><strong>Genre:</strong> <%= @book.genre %></p>
+
+            <p>
+              <strong>Description:</strong><br>
+              <%= @book.description %>
+            </p>
+
+            <p>
+              <strong>Price:</strong>
+              <span class="text-success fw-bold">
+                <%= number_to_currency(@book.price) %>
+              </span>
+            </p>
+          </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <div class="card text-center p-4 bg-light border-success">
+            <h4 class="mb-3">Total Sales</h4>
+
+            <p class="mb-1">This book has been purchased:</p>
+
+            <h2 class="text-success fw-bold">
+              <%= @total %> times
+            </h2>
+          </div>
+
+        </div>
+      </div>
+
+    <% else %>
+
+      <div class="alert alert-danger">
+        Book not found.
+      </div>
+
+    <% end %>
+
+    <div class="mt-4">
+      <%= link_to "⬅ Back to Books", books_path, class: "btn btn-secondary" %>
+    </div>
+
+  </div>
+</div>
