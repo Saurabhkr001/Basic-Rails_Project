@@ -1,24 +1,44 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+📚 Books Store Rails Application
 
-Things you may want to cover:
+A Ruby on Rails application for managing a bookstore. Users can browse, add, and manage books efficiently.
 
-* Ruby version
+Setup
+# Install dependencies
+bundle install
+yarn install
 
-* System dependencies
+# Database
+rails db:create
+rails db:migrate
+rails db:seed
 
-* Configuration
+# Run server
+rails server
 
-* Database creation
+Tests
+bundle exec rspec
+rails test:system
 
-* Database initialization
+Services
 
-* How to run the test suite
+Sidekiq (background jobs)
 
-* Services (job queues, cache servers, search engines, etc.)
+Redis (required for Sidekiq)
 
-* Deployment instructions
+Active Storage (file uploads)
 
-* ...
+Deployment
+git push -u origin main
+heroku create your-app-name
+git push heroku main
+rails db:migrate
+
+Project Structure
+app/      controllers, models, views, jobs
+config/   routes.rb, database.yml
+db/       migrate, seeds.rb
+
+
+MIT License — see LICENS..
