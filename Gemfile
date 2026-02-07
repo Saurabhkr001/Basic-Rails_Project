@@ -3,6 +3,9 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.1"
 
+gem 'dotenv-rails', groups: [:development, :test]
+
+
 # We REMOVED "propshaft" because we are now using "sprockets-rails" for Active Admin
 
 # Use sqlite3 as the database for Active Record
@@ -22,6 +25,11 @@ gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+
+group :development do
+  gem "pry"
+  gem "letter_opener_web"
+end
 
 # Asset Pipeline for Active Admin
 gem 'sprockets-rails'
