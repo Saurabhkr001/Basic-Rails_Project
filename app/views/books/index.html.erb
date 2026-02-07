@@ -1,20 +1,26 @@
 <div class="container mt-4">
 
-<!-- HEADER -->
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h1 class="fw-bold">📚 Books</h1>
-  <%= link_to "+ Publish New Book", new_book_path, class: "btn btn-primary" %>
-</div>
+  <!-- HEADER -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="fw-bold">📚 Books</h1>
 
-<!-- FILTER BUTTONS (ABOVE PUBLISH BUTTON VISUALLY) -->
-<div class="mb-4 d-flex gap-2">
-  <%= link_to "All Books", books_path,
-      class: "btn btn-outline-secondary btn-sm" %>
+    <% if user_signed_in? %>
+      <%= link_to "+ Publish New Book", new_book_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
 
-  <%= link_to "My Publishes",
-      books_path(filter: "mine"),
-      class: "btn btn-info btn-sm text-white" %>
-</div>
+  <!-- FILTER BUTTONS -->
+  <div class="mb-4 d-flex gap-2">
+    <%= link_to "All Books",
+        books_path,
+        class: "btn btn-outline-secondary btn-sm" %>
+
+    <% if user_signed_in? %>
+      <%= link_to "My Publishes",
+          books_path(filter: "mine"),
+          class: "btn btn-info btn-sm text-white" %>
+    <% end %>
+  </div>
 
   <!-- BOOK GRID -->
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
@@ -23,7 +29,7 @@
       <div class="col">
         <div class="card h-100 shadow-sm">
 
-          <!-- BIG COVER IMAGE -->
+          <!-- COVER IMAGE -->
           <% if book.cover_image.attached? %>
             <%= image_tag book.cover_image,
                 class: "card-img-top",
@@ -40,7 +46,8 @@
               <%= book.title %>
             </h5>
 
-            <% if book.user_id == current_user.id %>
+            <!-- OWNER BADGE -->
+            <% if user_signed_in? && book.user_id == current_user.id %>
               <span class="badge bg-primary mb-2">My Book</span>
             <% end %>
 
@@ -70,9 +77,14 @@
           <!-- ACTION BUTTONS -->
           <div class="card-footer bg-light d-flex gap-2">
             <%= link_to "Show", book, class: "btn btn-success btn-sm w-100" %>
-            <% if book.user_id == current_user.id %>
-              <%= link_to "Edit", edit_book_path(book), class: "btn btn-warning btn-sm w-100" %>
-              <%= button_to "Delete", book,
+
+            <% if user_signed_in? && book.user_id == current_user.id %>
+              <%= link_to "Edit",
+                  edit_book_path(book),
+                  class: "btn btn-warning btn-sm w-100" %>
+
+              <%= button_to "Delete",
+                  book,
                   method: :delete,
                   data: { confirm: "Are you sure?" },
                   class: "btn btn-danger btn-sm w-100" %>
