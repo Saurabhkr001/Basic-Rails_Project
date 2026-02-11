@@ -12,7 +12,7 @@ class User < ApplicationRecord
     self.admin == true
   end
 
-  def inspect
-    super
-  end
+  # def inspect
+  #   super
+  # end
 end
