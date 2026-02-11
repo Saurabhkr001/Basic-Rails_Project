@@ -34,7 +34,7 @@ class BooksController < ApplicationController
     @user = current_user
 
     if @book.save
-      BookMailer.book_published(@book, @user).deliver_now
+      # BookMailer.book_published(@book, @user).deliver_now
       redirect_to @book, notice: "Book created successfully."
     else
       render :new, status: :unprocessable_entity
