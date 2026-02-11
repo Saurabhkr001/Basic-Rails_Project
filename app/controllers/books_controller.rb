@@ -4,10 +4,17 @@ class BooksController < ApplicationController
   before_action :authorize_user, only: [ :edit, :update, :destroy ]
 
   def index
-    if params[:filter] == "mine"
-      @books = Book.where(user_id: current_user.id)
+    # if params[:filter] == "mine"
+    #   @books = Book.where(user_id: current_user.id)
+    # else
+    #   @books = Book.all
+    # end
+    @books =
+    case params[:filter]
+    when "my_books"
+      user_signed_in? ? Book.Mine(current_user) : Book.all
     else
-      @books = Book.all
+      Book.all
     end
   end
 

@@ -26,4 +26,7 @@ class Book < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     super + ["total_purchases", "user_id"]
   end
+
+  scope :All_books, -> {all}
+  scope :Mine, ->(user) { where(user_id: user.id) }
 end 

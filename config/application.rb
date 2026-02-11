@@ -16,6 +16,7 @@ module BooksStore
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    config.active_record.attributes_for_inspect = [ :id, :email ]
 
     config.active_job.queue_adapter= :sidekiq
 
