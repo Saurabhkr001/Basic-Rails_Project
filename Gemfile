@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.1"
 
-gem 'dotenv-rails', groups: [:development, :test]
+gem "dotenv-rails", groups: [ :development, :test ]
 
 
 # We REMOVED "propshaft" because we are now using "sprockets-rails" for Active Admin
@@ -32,12 +32,12 @@ group :development do
 end
 
 # Asset Pipeline for Active Admin
-gem 'sprockets-rails'
-gem 'sassc-rails'
+gem "sprockets-rails"
+gem "sassc-rails"
 
-gem 'pundit', '~> 2.5', '>= 2.5.2'
+gem "pundit", "~> 2.5", ">= 2.5.2"
 # Active Admin
-gem 'activeadmin'
+gem "activeadmin"
 
 # Use Active Model has_secure_password
 # gem "bcrypt", "~> 3.1.7" # (Uncommented above instead)
@@ -53,7 +53,7 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
-gem 'sidekiq'
+gem "sidekiq"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
