@@ -39,6 +39,3 @@ Project Structure
 app/      controllers, models, views, jobs
 config/   routes.rb, database.yml
 db/       migrate, seeds.rb
-
-
-MIT License — see LICENS..

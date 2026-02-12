@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h3>Chat with <%= @recipient.email.split("@")[0]%></h3>
+      
+      <!-- The Chat Form (With Stimulus Data Attributes) -->
+      <!-- FIX: Added 'url: messages_path' so Rails knows where to send the data -->
+      <%= form_with(model: @message, url: messages_path, local: false, 
+          data: { 
+            controller: 'chat', 
+            chat_room_value: [current_user.id, @recipient.id].sort.join('_') 
+          }) do |f| %>
+        
+        <!-- Messages Area (Targeted by Stimulus to append new HTML) -->
+        <div id="messages" data-chat-target="messages" style="border: 1px solid #ccc; height: 300px; overflow-y: scroll; padding: 10px; margin-bottom: 10px;">
+          <!-- Render existing messages if any -->
+          <%= render @messages if @messages.present? %>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-group">
+          <!-- FIX: Merged the two 'data' attributes into one object -->
+          <%= f.text_field :content, 
+              placeholder: "Type a message...", 
+              class: "form-control", 
+              data: { 
+                action: "submit->chat#preventSubmit",
+                chat_target: "input" 
+              } %>
+          
+          <%= f.hidden_field :recipient_id, value: @recipient.id %>
+          
+          <%= f.submit "Send", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Script to expose variables to Stimulus -->
+<script>
+  window.currentUserId = <%= current_user.id %>;
+</script>

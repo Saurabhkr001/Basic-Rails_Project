@@ -9,8 +9,11 @@ Rails.application.routes.draw do
   authenticate :admin_user do
     mount Sidekiq::Web => "/sidekiq"
   end
-
   devise_for :users
+
+  resources :users, only: [:show] 
+  resources :messages, only: [:create]
+
   root "books#index"
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?

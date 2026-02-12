@@ -9,23 +9,25 @@
 #   end
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 # Create standard users
-10.times do |i|
-  User.create!(
-    name: "Library Member #{i + 1}",
-    email: "member#{i + 1}@library.com",
-    password: "password123",
-    password_confirmation: "password123",
-    role: "member"
-  )
-end
 
-# Create one Librarian
-User.create!(
-  name: "Main Librarian",
-  email: "librarian@library.com",
-  password: "libpass",
-  password_confirmation: "libpass",
-  role: "librarian"
-)
 
-puts "Created #{User.count} users"
+# 10.times do |i|
+#   User.create!(
+#     name: "Library Member #{i + 1}",
+#     email: "member#{i + 1}@library.com",
+#     password: "password123",
+#     password_confirmation: "password123",
+#     role: "member"
+#   )
+# end
+
+# # Create one Librarian
+# User.create!(
+#   name: "Main Librarian",
+#   email: "librarian@library.com",
+#   password: "libpass",
+#   password_confirmation: "libpass",
+#   role: "librarian"
+# )
+
+# puts "Created #{User.count} users"

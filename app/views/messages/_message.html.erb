@@ -1,0 +1,5 @@
+<!-- app/views/messages/_message.html.erb -->
+<div class="message-row" data-sender-id="<%= message.user_id %>">
+  <strong><%= message.user.email %>:</strong>
+  <p><%= message.content %></p>
+</div>
