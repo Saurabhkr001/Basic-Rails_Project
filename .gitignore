@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+#romove all the :Zone.identifiers files 
+*:Zone.Identifier   
+
 # Ignore all environment files.
 /.env*
 

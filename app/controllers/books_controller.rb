@@ -9,12 +9,20 @@ class BooksController < ApplicationController
     # else
     #   @books = Book.all
     # end
-    @books =
-    case params[:filter]
-    when "my_books"
-      user_signed_in? ? Book.Mine(current_user) : Book.all
-    else
-      Book.all
+    # @books =
+    # case params[:filter]
+    # when "my_books"
+    #   user_signed_in? ? Book.Mine(current_user) : Book.all
+    # else
+    #   Book.all
+    # end
+
+    @books = Book.all # Start with everything
+
+    @books = @books.where(user_id: params[:user_id]) if params[:user_id].present?
+
+    if params[:filter] == "my_books" && user_signed_in?
+      @books = @books.merge(Book.Mine(current_user))
     end
   end
 
@@ -34,7 +42,7 @@ class BooksController < ApplicationController
     @user = current_user
 
     if @book.save
-      BookMailer.book_published(@book, @user).deliver_now
+      # BookMailer.book_published(@book, @user).deliver_now
       redirect_to @book, notice: "Book created successfully."
     else
       render :new, status: :unprocessable_entity

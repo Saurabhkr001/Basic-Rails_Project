@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_05_134734) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_12_082602) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.integer "author_id"
     t.string "author_type"
@@ -73,20 +73,27 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_05_134734) do
     t.string "genre"
     t.decimal "price"
     t.string "title"
-    t.integer "total_purchases"
+    t.integer "total_purchases", default: 0, null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_books_on_user_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.integer "recipient_id"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.boolean "admin"
-    t.integer "age"
     t.datetime "created_at", null: false
     t.string "email"
     t.string "encrypted_password", default: "", null: false
     t.string "name"
-    t.string "password_digest"
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
@@ -98,4 +105,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_05_134734) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "books", "users"
+  add_foreign_key "messages", "users"
 end

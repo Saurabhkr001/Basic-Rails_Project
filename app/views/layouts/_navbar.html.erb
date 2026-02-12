@@ -18,12 +18,13 @@
     <div class="collapse navbar-collapse" id="mainNavbar">
       <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
 
-        <!-- ALL BOOKS BUTTON -->
+  <!-- ALL BOOKS BUTTON 
         <li class="nav-item">
           <%= link_to "All Books",
               books_path,
               class: "btn btn-outline-secondary btn-sm" %>
         </li>
+  -->
 
         <!-- FILTER DROPDOWN -->
         <li class="nav-item dropdown">
@@ -36,12 +37,14 @@
           </a>
 
           <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+            <!-- DEFAULT: SHOW ALL -->
             <li>
               <%= link_to "📖 All Books",
                   books_path,
-                  class: "dropdown-item #{'active' if params[:filter].blank?}" %>
+                  class: "dropdown-item #{'active' if params[:user_id].blank? && params[:filter].blank?}" %>
             </li>
 
+            <!-- MY PUBLISHES -->
             <% if user_signed_in? %>
               <li>
                 <%= link_to "✍️ My Publishes",
@@ -49,8 +52,33 @@
                     class: "dropdown-item #{'active' if params[:filter] == 'my_books'}" %>
               </li>
             <% end %>
+
+            <!-- DIVIDER -->
+            <li><hr class="dropdown-divider"></li>
+
+            <!-- LIST USERS TO FILTER BY -->
+            <% User.order(:name).each do |user| %>
+              <li>
+                <%= link_to "👤 #{user.name.presence || user.email}",
+                    books_path(user_id: user.id),
+                    class: "dropdown-item #{'active' if params[:user_id] == user.id.to_s}" %>
+              </li>
+            <% end %>
           </ul>
         </li>
+
+        <!-- CHAT BUTTON -->
+        <!-- Only shows if a user is currently selected via the filter -->
+        <% if params[:user_id].present? %>
+          <% target_user = User.find_by(id: params[:user_id]) %>
+          <% if target_user && user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "Chat with #{target_user.name.presence || 'User'}",
+                  user_path(target_user),
+                  class: "btn btn-primary btn-sm" %>
+            </li>
+          <% end %>
+        <% end %>
 
         <% if user_signed_in? %>
 
